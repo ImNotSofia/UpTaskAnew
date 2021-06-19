@@ -6,6 +6,18 @@ const path = require('path');
 
 const bodyParser = require('body-parser');
 
+//Creo la conexión a la DataBase
+
+const db = require('./config/db');
+
+//Importamos modelos
+
+require('./models/Proyectos');
+
+db.sync()
+    .then (() => console.log('Conectado al servidor'))
+    .catch(error => console.log(error));
+
 //Creo una App express
 
 const app = express();
