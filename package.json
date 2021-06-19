@@ -14,7 +14,7 @@
   },
   "author": "Sofia Rodriguez",
   "license": "ISC",
-   "dependencies": {
+  "dependencies": {
     "axios": "^0.18.1",
     "bcrypt": "^5.0.1",
     "bcrypt-nodejs": "0.0.3",
