@@ -1,9 +1,9 @@
+const { render } = require("pug");
+
 exports.proyectosHome = (req, res) => {
 
-    res.send('¡Hola!');
-}
+    res.render('index', {
+        nombrePagina : 'Proyectos'
+    });
 
-exports.nosotros = (req, res) => {
-
-    res.send('We!');
 }

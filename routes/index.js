@@ -12,8 +12,6 @@ module.exports = function () {
 
     router.get('/', proyectosController.proyectosHome);
 
-    router.get('/nosotros', proyectosController.nosotros);
-
     return router;
 
 };
