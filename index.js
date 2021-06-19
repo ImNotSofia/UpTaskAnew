@@ -4,6 +4,8 @@ const routes = require('./routes');
 
 const path = require('path');
 
+const bodyParser = require('body-parser');
+
 //Creo una App express
 
 const app = express();
@@ -15,6 +17,10 @@ app.use(express.static('public'));
 //Habilitar PUG
 
 app.set('view engine', 'pug');
+
+//Habilitamos BodyParser para poder leer los datos del formulario
+
+app.use(bodyParser.urlencoded({extended : true}));  //bodyParser deprecated, express is an option, anyway, still work.
 
 //Añadir la carpeta de vistar
 
