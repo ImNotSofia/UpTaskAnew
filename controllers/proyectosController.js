@@ -1,3 +1,5 @@
+const Proyectos = require('../models/Proyectos');
+
 const { render } = require("pug");
 
 exports.proyectosHome = (req, res) => {
@@ -16,7 +18,7 @@ exports.formularioProyecto = (req, res) => {
 
 }
 
-exports.nuevoProyecto = (req, res) => {
+exports.nuevoProyecto = async (req, res) => {
 
     //Enviamos a consola lo que el usuario escriba
 
@@ -24,7 +26,7 @@ exports.nuevoProyecto = (req, res) => {
 
     //Validamos que haya algo en el input
 
-    const { nombre } = req.body
+    const nombre = req.body.nombre
 
     let errores =[];
 
@@ -50,6 +52,9 @@ exports.nuevoProyecto = (req, res) => {
         //No error
 
         //Insertar en DataBase
+
+        const proyecto = await Proyectos.create({ nombre });
+        res.redirect('/');
     }
 
 }

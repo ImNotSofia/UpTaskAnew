@@ -1,7 +1,10 @@
 const { Router } = require('express');
+
 const express = require('express');
 
 const router = express.Router();
+
+const { body } = require('express-validator/check');
 
 //Importamos el controlador
 
@@ -15,7 +18,9 @@ module.exports = function () {
 
     router.get('/nuevo-proyecto', proyectosController.formularioProyecto);
 
-    router.post('/nuevo-proyecto', proyectosController.nuevoProyecto);
+    router.post('/nuevo-proyecto',
+        body('nombre').not().isEmpty().trim().escape(),
+        proyectosController.nuevoProyecto);
 
     return router;
 
