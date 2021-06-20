@@ -6,6 +6,10 @@ const path = require('path');
 
 const bodyParser = require('body-parser');
 
+//Helpers con algunas funciones
+
+const helpers = require('./helpers');
+
 //Creo la conexión a la DataBase
 
 const db = require('./config/db');
@@ -29,6 +33,14 @@ app.use(express.static('public'));
 //Habilitar PUG
 
 app.set('view engine', 'pug');
+
+//Pasamos vardump a la aplicación
+
+app.use((req, res, next) => {
+
+    res.locals.vardump = helpers.vardump;
+    next();
+})
 
 //Habilitamos BodyParser para poder leer los datos del formulario
 
