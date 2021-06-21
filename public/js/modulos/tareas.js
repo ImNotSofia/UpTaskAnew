@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const tareas = document.querySelector('.listado-pendientes');
 
 if (tareas) {
@@ -13,11 +15,16 @@ if (tareas) {
 
             const url = `${location.origin}/tareas/${idTarea}`;
 
-            console.log(url);
-
+            axios.patch(url, { idTarea })
+                .then(function(respuesta){
+                    console.log(respuesta);
+                })
+            
         }
-    });
 
+    });
+    
 }
+
 
 export default tareas;
