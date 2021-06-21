@@ -6,6 +6,14 @@ const path = require('path');
 
 const bodyParser = require('body-parser');
 
+const expressValidator = require('express-validator');
+
+const flash = require('connect-flash');
+
+const session = require('express-session');
+
+const cookieParser = require('cookie-parser');
+
 //Helpers con algunas funciones
 
 const helpers = require('./helpers');
@@ -18,6 +26,7 @@ const db = require('./config/db');
 
 require('./models/Proyectos');
 require('./models/Tareas');
+require('./models/Usuarios');
 
 db.sync()
     .then (() => console.log('Conectado al servidor'))
@@ -35,21 +44,40 @@ app.use(express.static('public'));
 
 app.set('view engine', 'pug');
 
+//Habilitamos BodyParser para poder leer los datos del formulario
+
+app.use(bodyParser.urlencoded({extended : true}));  //bodyParser deprecated, express is an option, anyway, still work.
+
+//Agregamos express validator a toda la aplicación
+
+app.use(expressValidator());
+
+//Añadir la carpeta de vistar
+
+app.set ('views', path.join(__dirname, './views'));
+
+//Agregamos flash messages
+
+app.use(flash());
+
+app.use(cookieParser());
+
+//Sesiones, navegar sin desloguear
+
+app.use(session({
+    secret: 'supersecreto',
+    resave: false,
+    saveUninitialized: false
+}));
+
 //Pasamos vardump a la aplicación
 
 app.use((req, res, next) => {
 
     res.locals.vardump = helpers.vardump;
+    res.locals.mensajes = req.flash();
     next();
 })
-
-//Habilitamos BodyParser para poder leer los datos del formulario
-
-app.use(bodyParser.urlencoded({extended : true}));  //bodyParser deprecated, express is an option, anyway, still work.
-
-//Añadir la carpeta de vistar
-
-app.set ('views', path.join(__dirname, './views'));
 
 app.use('/', routes() );
 
