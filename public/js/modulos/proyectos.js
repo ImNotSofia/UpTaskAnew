@@ -19,7 +19,8 @@ if (btnEliminar) {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, borrar'
+            confirmButtonText: 'Si, borrar',
+            cancelButtonText: 'Cancelar'
         }).then((result) => {
 
             if (result.value) {
@@ -54,8 +55,8 @@ if (btnEliminar) {
                             type: 'error',
                             title: 'Hubo un error',
                             text: 'No se pudo eliminar el proyecto'
+                        })
                     })
-                })
             }
         })
 
