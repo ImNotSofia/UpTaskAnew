@@ -9,7 +9,11 @@ if (tareas) {
 
             const idTarea = icono.parentElement.parentElement.dataset.tarea;
 
-            console.log(idTarea);
+            //Req tareas
+
+            const url = `${location.origin}/tareas/${idTarea}`;
+
+            console.log(url);
 
         }
     });

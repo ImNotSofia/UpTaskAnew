@@ -438,7 +438,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var swee
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nvar tareas = document.querySelector('.listado-pendientes');\n\nif (tareas) {\n  tareas.addEventListener('click', function (e) {\n    if (e.target.classList.contains('fa-check-circle')) {\n      var icono = e.target;\n      var idTarea = icono.parentElement.parentElement.dataset.tarea;\n      console.log(idTarea);\n    }\n  });\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (tareas);\n\n//# sourceURL=webpack:///./public/js/modulos/tareas.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nvar tareas = document.querySelector('.listado-pendientes');\n\nif (tareas) {\n  tareas.addEventListener('click', function (e) {\n    if (e.target.classList.contains('fa-check-circle')) {\n      var icono = e.target;\n      var idTarea = icono.parentElement.parentElement.dataset.tarea; //Req tareas\n\n      var url = \"\".concat(location.origin, \"/tareas/\").concat(idTarea);\n      console.log(url);\n    }\n  });\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (tareas);\n\n//# sourceURL=webpack:///./public/js/modulos/tareas.js?");
 
 /***/ })
 
