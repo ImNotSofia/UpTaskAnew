@@ -63,7 +63,7 @@ exports.nuevoProyecto = async (req, res) => {
 
         //Insertar en DataBase
 
-        const proyecto = await Proyectos.create({ nombre });
+        await Proyectos.create({ nombre });
         res.redirect('/');
     }
 
@@ -71,14 +71,16 @@ exports.nuevoProyecto = async (req, res) => {
 
 exports.proyectoPorUrl = async (req, res, next) => {
 
-    const proyectos = await Proyectos.findAll();
+    const proyectosPromise = Proyectos.findAll();
 
-    const proyecto = await Proyectos.findOne({
+    const proyectoPromise = Proyectos.findOne({
 
         where: {
             url: req.params.url
         }
     });
+
+    const [proyectos, proyecto] = await Promise.all([proyectosPromise, proyectoPromise]); 
 
     if(!proyecto) return next();
 
@@ -89,4 +91,71 @@ exports.proyectoPorUrl = async (req, res, next) => {
         proyecto,
         proyectos
     })
+}
+
+exports.formularioEditar = async (req, res) => {
+
+    const proyectosPromise = Proyectos.findAll();
+
+    const proyectoPromise = Proyectos.findOne({
+
+        where: {
+            id: req.params.id
+        }
+    });
+
+    const [proyectos, proyecto] = await Promise.all([proyectosPromise, proyectoPromise]);
+
+    //Render a la vista
+
+    res.render('nuevoProyecto', {
+        nombrePagina: 'Editar Proyecto',
+        proyectos,
+        proyecto
+    });
+}
+
+exports.actualizarProyecto = async (req, res) => {
+
+    //Sidebar
+
+    const proyectos = await Proyectos.findAll();
+
+    //Validamos que haya algo en el input
+
+    const nombre = req.body.nombre
+
+    let errores =[];
+
+    if(!nombre) {
+
+        errores.push({'texto' : 'Agregue un nombre al proyecto'})
+
+    }
+
+    //Si hay errores
+
+    if(errores.length > 0) {
+
+        res.render('nuevoProyecto', {
+
+            nombrePagina : 'Nuevo Proyecto',
+
+            errores,
+
+            proyectos
+        })
+
+    } else {
+
+        //No error
+
+        //Insertar en DataBase
+
+        await Proyectos.update(
+            {nombre: nombre},
+            {where: {id: req.params.id}});
+        res.redirect('/');
+    }
+
 }

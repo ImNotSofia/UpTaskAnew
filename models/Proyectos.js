@@ -31,6 +31,14 @@ const Proyectos = db.define('proyectos', {
 
             proyecto.url = `${url}-${shortid.generate()}`;
         }
+
+        /*beforeUpdate(proyecto) { --> Actualizaría la url y shortid luego de un update, no agregado, pero importante
+
+            const url = slug(proyecto.nombre).toLowerCase();
+
+
+            proyecto.url = `${url}-${shortid.generate()}`;
+        }*/
     }
 });
 
