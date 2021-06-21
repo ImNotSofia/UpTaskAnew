@@ -16,14 +16,17 @@ if (tareas) {
             const url = `${location.origin}/tareas/${idTarea}`;
 
             axios.patch(url, { idTarea })
-                .then(function(respuesta){
-                    console.log(respuesta);
+                .then(function (respuesta) {
+                    if(respuesta.status === 200){
+
+                        icono.classList.toggle('completo');
+                    }
                 })
-            
+
         }
 
     });
-    
+
 }
 
 
