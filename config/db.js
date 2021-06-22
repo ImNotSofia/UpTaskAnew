@@ -1,9 +1,15 @@
 const Sequelize = require('sequelize');
 
-const db = new Sequelize ('uptaskanew', 'root', 'root', {
+//Extraemos de variables env
 
-    host: 'localhost',
+require('dotenv').config({ path: '../variables.env' });
+
+const db = new Sequelize(process.env.BD_NOMBRE, process.env.BD_USER, process.env.BD_PASSWORD, 
+    
+    {
+    host: process.env.BD_HOST,
     dialect: 'mysql',
+    port: process.env.BD_PORT,
     operatorsAliases: 0,
     define: {
         timestamps: false

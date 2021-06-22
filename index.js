@@ -16,6 +16,12 @@ const cookieParser = require('cookie-parser');
 
 const passport = require('./config/passport');
 
+require('./handler/email');
+
+//Importar variables env
+
+require('dotenv').config({ path: '../variables.env' });
+
 //Helpers con algunas funciones
 
 const helpers = require('./helpers');
@@ -89,6 +95,14 @@ app.use((req, res, next) => {
 
 app.use('/', routes() );
 
-app.listen(9000);
+//Serv and port
 
-require('./handler/email');
+const host = process.env.HOST || '0.0.0.0';
+
+const port = process.env.PORT || 9000;
+
+app.listen(port, host, () => {
+
+    console.log('Servidor funcionando');
+})
+
